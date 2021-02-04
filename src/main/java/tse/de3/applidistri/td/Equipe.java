@@ -1,5 +1,7 @@
 package tse.de3.applidistri.td;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,9 +19,9 @@ public class Equipe {
     }
     public Equipe(String nom) {
         this.nom = nom;
-        this.joueurs = new HashSet<Joueur>();
+        this.joueurs = new ArrayList<Joueur>();
     }
-    public Equipe(String nom, HashSet<Joueur> joueurs) {
+    public Equipe(String nom, List<Joueur> joueurs) {
         this.nom = nom;
         this.joueurs = joueurs;
     }
@@ -29,19 +31,21 @@ public class Equipe {
     private Long id;
     private String nom;
 
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "joueur_id")
-    private Set<Joueur> joueurs;
+    @JsonBackReference
+    private List<Joueur> joueurs;
 
     public String getNom() {
         return nom;
     }
 
-    public Set<Joueur> getJoueurs() {
+    public List<Joueur> getJoueurs() {
         return joueurs;
     }
 
-    public void setJoueurs(Set<Joueur> joueurs) {
+    public void setJoueurs(List<Joueur> joueurs) {
         this.joueurs = joueurs;
     }
 

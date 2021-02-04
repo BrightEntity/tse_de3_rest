@@ -1,9 +1,7 @@
 package tse.de3.applidistri.td;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +23,12 @@ public class JoueurController {
     @GetMapping("/joueur/{id}/equipe")
     public Equipe getEquipe(@PathVariable("id") Long id) {
         return this.joueurRepository.getOne(id).getEquipe();
+    }
+
+    @PostMapping("/joueur/{id}/set/equipe")
+    public Joueur setEquipe(@PathVariable("id") Long id, @RequestBody Equipe equipe) {
+        Joueur j = this.joueurRepository.getOne(id);
+        j.setEquipe(equipe);
+        return j;
     }
 }
