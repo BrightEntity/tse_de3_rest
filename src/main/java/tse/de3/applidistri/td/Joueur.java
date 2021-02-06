@@ -1,5 +1,6 @@
 package tse.de3.applidistri.td;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
@@ -28,7 +29,7 @@ public class Joueur {
             return;
         this.equipe = null;
     }
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="equipe_id")
     private Equipe equipe;

@@ -25,7 +25,7 @@ public class JoueurController {
         return this.joueurRepository.getOne(id).getEquipe();
     }
 
-    @PostMapping("/joueur/{id}/set/equipe")
+    @PostMapping("/joueur/{id}/equipe")
     public Joueur setEquipe(@PathVariable("id") Long id, @RequestBody Equipe equipe) {
         Joueur j = this.joueurRepository.getOne(id);
         j.setEquipe(equipe);

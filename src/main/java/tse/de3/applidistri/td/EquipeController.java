@@ -1,10 +1,8 @@
 package tse.de3.applidistri.td;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +25,21 @@ public class EquipeController {
         return this.equipeRepository.getOne(id);
     }
 
-    @PostMapping("/equipe")
-    public Equipe addTeam(Equipe equipe) {
-        return this.equipeRepository.save(equipe);
+    @RequestMapping(value = "/equipe", method = RequestMethod.PUT)
+    public Equipe addTeam(@ModelAttribute Equipe equipe) {
+        Equipe eq = new Equipe();
+        eq.setNom(equipe.getNom());
+        eq.setJoueurs(equipe.getJoueurs());
+        this.equipeRepository.save(eq);
+        return eq;
+    }
+
+    @RequestMapping(value = "/equipe", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Equipe updateEquipe(@RequestBody Equipe equipe) {
+        Equipe eq = this.equipeRepository.getOne(equipe.getId());
+        eq.setNom(equipe.getNom());
+        eq.setJoueurs(equipe.getJoueurs());
+        this.equipeRepository.save(eq);
+        return eq;
     }
 }

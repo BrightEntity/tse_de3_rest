@@ -2,6 +2,7 @@ package tse.de3.applidistri.td;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -34,7 +35,7 @@ public class Equipe {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "joueur_id")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Joueur> joueurs;
 
     public String getNom() {
